@@ -6,40 +6,41 @@
 
 package cancer;
 
+import java.io.*;
+
 /**
- *
+ * 
  * @author fedie2562
  */
 public class Cancer {
-    
-    public static String grid[][];
-    public static int blobSize;
+  //Make global variables (grid&blobSize) which are accessible
+  //from anywhere inside the class FloodIntro
+  public static String grid[][];
+  public static int blobSize;
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        //
-        int row, col;
-        //Create 2D array size 12 x 12
-        grid = new String[12][12];
+  public static void main(String[] args) {
+    int row, col;
+    //Create 2D array size 15 x 15
+    grid = new String[15][15];
 
-        //Fill the array with blanks
-        for (row = 0; row < 12; row++) {
-        for (col = 0; col < 12; col++) {
-            grid[row][col] = " ";
-            }
-        }
-        //Fill 70 random elements in the array with an asterisk
-        //Do no choose an element along the border
-        //The border will always contain elements with spaces
-        //(blank border)
-        for (int i = 0; i < 70; i++) {
-        row = (int) (Math.random() * 10 + 1);
-        col = (int) (Math.random() * 10 + 1);
-        grid[row][col] = "*";
-        }
-        //Print out the current grid
+    //Fill the array with plus
+    for (row = 0; row < 15; row++) {
+      for (col = 0; col < 15; col++) {
+        grid[row][col] = "+";
+      }
+    }
+
+    //Fill 70 random elements in the array with an asterisk
+    //Do no choose an element along the border
+    //The border will always contain elements with spaces
+    //(blank border)
+    for (int i = 0; i < 70; i++) {
+      row = (int) (Math.random() * 13 + 1);
+      col = (int) (Math.random() * 13 + 1);
+      grid[row][col] = "-";
+    }
+
+    //Print out the current grid
     displayGrid();
 
     //variable to determine the size of the blob
@@ -49,8 +50,8 @@ public class Cancer {
     //border and remove the blob at that location
     //NOTE: if a blank is chosen, the blob size is 0
     //and nothing is removed
-    int blobRow = (int) (Math.random() * 10 + 1);
-    int blobCol = (int) (Math.random() * 10 + 1);
+    int blobRow = (int) (Math.random() * 13 + 1);
+    int blobCol = (int) (Math.random() * 13 + 1);
 
     System.out.println("The blob at " + blobRow + "," + blobCol
       + " will be removed.");
@@ -78,16 +79,21 @@ public class Cancer {
   }
 
   public static void displayGrid() {
-    String output = "  1234567890";
-    for (int row = 0; row <= 11; row++) {
-      if ((row > 0) && (row < 11)) {
-        output += (row % 10);
-      }
-      for (int col = 0; col <= 11; col++) {
+    String output = "";
+    for (int row = 0; row <= 14; row++) {
+      //if ((row > 0) && (row < 14)) {
+      //  output += (row % 14);
+      //}
+      for (int col = 0; col <= 14; col++) {
         output += grid[row][col];
       }
       output += "\n";
     }
     System.out.println(output);
+    try{
+        PrintWriter fileOut = new PrintWriter(new FileWriter("cancer.txt", true));
+        fileOut.print(output);
+        fileOut.close();
+    }catch(IOException IOEx){}
   }
 }
