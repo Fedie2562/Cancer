@@ -34,7 +34,7 @@ public class Cancer {
     //Do no choose an element along the border
     //The border will always contain elements with spaces
     //(blank border)
-    for (int i = 0; i < 70; i++) {
+    for (int i = 0; i < 20; i++) {
       row = (int) (Math.random() * 13 + 1);
       col = (int) (Math.random() * 13 + 1);
       grid[row][col] = "-";
@@ -91,7 +91,7 @@ public class Cancer {
     }
     System.out.println(output);
     try{
-        PrintWriter fileOut = new PrintWriter(new FileWriter("cancer.txt", true));
+        PrintWriter fileOut = new PrintWriter(new FileWriter("cancer.txt"));
         fileOut.print(output);
         fileOut.close();
     }catch(IOException IOEx){}
