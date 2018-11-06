@@ -34,38 +34,38 @@ public class Cancer {
     //Do no choose an element along the border
     //The border will always contain elements with spaces
     //(blank border)
-    for (int i = 0; i < 70; i++) {
-      row = (int) (Math.random() * 13 + 1);
-      col = (int) (Math.random() * 13 + 1);
-      grid[row][col] = "-";
-    }
-
+    //for (int i = 0; i < 60; i++) {
+    //  row = (int) (Math.random() * 13 + 1);
+    //  col = (int) (Math.random() * 13 + 1);
+    // grid[row][col] = "-";
+    //}
+    
     //Print out the current grid
     displayGrid();
-
+       
+    int blobRow = (int) (Math.random() * 14 + 1);
+    int blobCol = (int) (Math.random() * 14 + 1);
+    grid[blobRow][blobCol] = "-";
+    floodFill(blobRow, blobCol);
     //variable to determine the size of the blob
-    blobSize = 0;
 
     //Pick one random element in the array that is not along the
     //border and remove the blob at that location
     //NOTE: if a blank is chosen, the blob size is 0
     //and nothing is removed
-    int blobRow = (int) (Math.random() * 13 + 1);
-    int blobCol = (int) (Math.random() * 13 + 1);
 
-    System.out.println("The blob at " + blobRow + "," + blobCol
-      + " will be removed.");
-    floodFill(blobRow, blobCol);
-    System.out.println("The blob had " + blobSize +
-      " items in it");
-    System.out.println("The new grid is:");
+    System.out.println("There are "+blobSize+" cancer spots");
+    //floodFill(blobRow, blobCol);
+    //System.out.println("The blob had " + blobSize +
+    //  " items in it");
+    //System.out.println("The new grid is:");
     //Print out the new grid
     displayGrid();
   }
 
   public static void floodFill(int row, int col) {
-    if (grid[row][col].equals("*")) {
-      grid[row][col] = " ";
+    if (grid[row][col].equals("-")) {
+      grid[row][col] = "X";
       blobSize++;
       floodFill(row - 1, col - 1);
       floodFill(row - 1, col);
