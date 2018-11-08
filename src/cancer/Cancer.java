@@ -39,14 +39,17 @@ public class Cancer {
     //  col = (int) (Math.random() * 13 + 1);
     // grid[row][col] = "-";
     //}
+    int blobRow, blobCol;
+    for (int i = 0; i < 4; i++){
+        blobRow = (int) (Math.random() * 14 + 1);
+        blobCol = (int) (Math.random() * 14 + 1);
+        grid[blobRow][blobCol] = "-";
+    }
     
     //Print out the current grid
     displayGrid();
-       
-    int blobRow = (int) (Math.random() * 14 + 1);
-    int blobCol = (int) (Math.random() * 14 + 1);
-    grid[blobRow][blobCol] = "-";
-    floodFill(blobRow, blobCol);
+    
+  //  floodFill(blobRow, blobCol);
     //variable to determine the size of the blob
 
     //Pick one random element in the array that is not along the
