@@ -16,7 +16,7 @@ public class Cancer {
   //Make global variables (grid&blobSize) which are accessible
   //from anywhere inside the class FloodIntro
   public static String grid[][];
-  public static int blobSize;
+  public static int blobSize, blobCount;
 
   public static void main(String[] args) {
     int row, col;
@@ -40,24 +40,34 @@ public class Cancer {
     // grid[row][col] = "-";
     //}
     int blobRow, blobCol;
-    for (int i = 0; i < 4; i++){
-        blobRow = (int) (Math.random() * 14 + 1);
-        blobCol = (int) (Math.random() * 14 + 1);
+    for (int i = 0; i < 5; i++){
+        blobRow = (int) (Math.random() * 13 + 1);
+        blobCol = (int) (Math.random() * 13 + 1);
         grid[blobRow][blobCol] = "-";
+    }
+    for (int i = 0; i < 100; i++){
+        blobRow = (int) (Math.random() * 13 + 1);
+        blobCol = (int) (Math.random() * 13 + 1);
+        if(adjacentCheck(blobRow, blobCol)){
+            grid[blobRow][blobCol] = "-";
+        }
     }
     
     //Print out the current grid
     displayGrid();
-    
-  //  floodFill(blobRow, blobCol);
+    for (int i = 0; i < 100; i++){
+        blobRow = (int) (Math.random() * 13 + 1);
+        blobCol = (int) (Math.random() * 13 + 1);
+        floodFill(blobRow, blobCol);
+    }
     //variable to determine the size of the blob
 
     //Pick one random element in the array that is not along the
     //border and remove the blob at that location
     //NOTE: if a blank is chosen, the blob size is 0
     //and nothing is removed
-
-    System.out.println("There are "+blobSize+" cancer spots");
+    System.out.println("There are "+blobCount+" cancer blobs");
+    System.out.println("There are "+blobSize+" cancer cells");
     //floodFill(blobRow, blobCol);
     //System.out.println("The blob had " + blobSize +
     //  " items in it");
@@ -66,9 +76,18 @@ public class Cancer {
     displayGrid();
   }
 
+  public static boolean adjacentCheck(int r,int c){
+      if(grid[r+1][c].equalsIgnoreCase("-")){return true;}
+      if(grid[r+1][c-1].equalsIgnoreCase("-")){return true;}
+      if(grid[r][c+1].equalsIgnoreCase("-")){return true;}
+      if(grid[r-1][c+1].equalsIgnoreCase("-")){return true;}
+      if(grid[r][c-1].equalsIgnoreCase("-")){return true;}
+      return grid[r-1][c].equalsIgnoreCase("-");
+  }
+  
   public static void floodFill(int row, int col) {
     if (grid[row][col].equals("-")) {
-      grid[row][col] = "X";
+      grid[row][col] = " ";
       blobSize++;
       floodFill(row - 1, col - 1);
       floodFill(row - 1, col);
@@ -80,7 +99,6 @@ public class Cancer {
       floodFill(row + 1, col + 1);
     }
   }
-
   public static void displayGrid() {
     String output = "";
     for (int row = 0; row <= 14; row++) {
